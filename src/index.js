@@ -3,6 +3,12 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import * as serviceWorker from "./utils/serviceWorker";
 
+//bootstrap import
+import "bootstrap/dist/css/bootstrap.min.css";
+
+//my style
+import "./css/index.sass";
+
 ReactDOM.render(<App />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change

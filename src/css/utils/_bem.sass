@@ -1,0 +1,8 @@
+@mixin e($element)
+  @at-root #{&}__#{$element}
+    @content
+
+@mixin m($modifier)
+  //&--#{$modifier}{
+  @at-root #{&}--#{$modifier}
+    @content

@@ -1,6 +1,6 @@
 import React from "react";
-import Select from "../Select/Select";
-import Button from "../Button/Button";
+import Select from "../../../../commons/Select/Select";
+import Button from "../../../../commons/Button/Button";
 
 const Filter = () => (
   <div className="filter-company col-4 border">

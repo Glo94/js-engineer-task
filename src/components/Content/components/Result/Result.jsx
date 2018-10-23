@@ -1,5 +1,6 @@
 import React from "react";
-import Select from "../Select/Select";
+import Select from "../../../../commons/Select/Select";
+import Car from "../Car/Car";
 
 const Result = () => (
   <div className="result-company col-8">
@@ -13,6 +14,9 @@ const Result = () => (
       <div className="col-5 p-0">
         <Select label="Sort by" />
       </div>
+    </div>
+    <div className="row m-0">
+      <Car />
     </div>
   </div>
 );

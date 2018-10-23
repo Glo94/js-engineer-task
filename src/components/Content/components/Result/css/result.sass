@@ -3,11 +3,15 @@
 .result-company
     padding-right: 0
     padding-left: $large-space
+        
     @include e('text')
         display: flex
         flex-direction: column
         justify-content: space-between
 
         @include e('first')
-            font-weight: $font-bold
+            font-weight: $bold
+
+    @include e('car')
+        padding-top: $large-space
 

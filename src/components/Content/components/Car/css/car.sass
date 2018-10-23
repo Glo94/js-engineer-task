@@ -1,3 +1,32 @@
 @import "../../../../../css/imports.sass"
 
 .car-company
+    width: 100%
+    border: 2px solid $grey
+    margin-bottom: $normal-space
+    display: flex
+    justify-content: flex-start
+    padding: $normal-space
+
+    @include e('img')
+        width: 100px
+        height: auto
+        background-color: $grey
+
+    @include e('details')
+        margin-left: $large-space
+        display: flex
+        flex-direction: column
+
+        label
+            font-size: $small-size
+            
+            &:first-child
+                font-weight: $bold
+                font-size: $normal-size
+        a
+            font-size: $extraSmall-size
+            color: $orange
+
+            &:hover
+                text-decoration: underline

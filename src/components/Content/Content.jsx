@@ -5,8 +5,12 @@ import Result from "./components/Result/Result";
 const Content = () => (
   <div className="content-company container-fluid">
     <div className="row m-0">
-      <Filter />
-      <Result />
+      <div className="col-12 col-sm-4">
+        <Filter />
+      </div>
+      <div className="col-12 col-sm-8">
+        <Result />
+      </div>
     </div>
   </div>
 );

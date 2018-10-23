@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
 import * as serviceWorker from "./utils/serviceWorker";
 
 //bootstrap import
@@ -9,7 +8,41 @@ import "bootstrap/dist/css/bootstrap.min.css";
 //my style
 import "./css/index.sass";
 
-ReactDOM.render(<App />, document.getElementById("root"));
+//Router
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+
+//components
+//import Home from "./containers/AppContainer";
+import Header from "./commons/Header/Header";
+import Footer from "./commons/Footer/Footer";
+
+//loader
+import Loadable from "react-loadable";
+import Loading from "./utils/Loading";
+
+const AsyncHome = Loadable({
+  loader: () => import("./containers/AppContainer"),
+  loading: Loading
+});
+
+const AsyncCarDetails = Loadable({
+  loader: () => import("./routes/CarDetails/CarDetails"),
+  loading: Loading
+});
+
+ReactDOM.render(
+  <BrowserRouter>
+    <div>
+      <Header />
+      <Switch>
+        <Route exact path="/" component={AsyncHome} />
+        <Route path="/car-details" component={AsyncCarDetails} />
+      </Switch>
+      <Footer />
+    </div>
+  </BrowserRouter>,
+  document.getElementById("root")
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

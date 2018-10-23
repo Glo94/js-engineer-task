@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Car = ({ label }) => (
   <div className="car-company">
@@ -6,7 +7,7 @@ const Car = ({ label }) => (
     <div className="car-company__details">
       <label>Name</label>
       <label>Description</label>
-      <a href="./">View details</a>
+      <Link to="/car-details">View details</Link>
     </div>
   </div>
 );

@@ -2,8 +2,8 @@ import React from "react";
 import Filter from "./components/Filter/Filter";
 import Result from "./components/Result/Result";
 
-const Content = () => (
-  <div className="content-company container-fluid">
+const Home = () => (
+  <div className="home-company container-fluid">
     <div className="row m-0">
       <div className="col-12 col-sm-4">
         <Filter />
@@ -15,4 +15,4 @@ const Content = () => (
   </div>
 );
 
-export default Content;
+export default Home;

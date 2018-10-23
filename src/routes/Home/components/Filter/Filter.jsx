@@ -1,44 +1,33 @@
-import React, { Component } from "react";
+import React from "react";
 import Select from "../../../../commons/Select/Select";
 import Button from "../../../../commons/Button/Button";
 
-class Filter extends Component {
-  listSelect = cars => {
-    let list = {
-      colors: [],
-      manufacturers: []
-    };
+const Filter = ({ colors, cars, manufacturers }) => {
+  const listSelect = cars => {
+    let listManufacturers = [];
 
-    cars.map(item => {
-      if (list.colors.includes(item.color) === false)
-        list.colors.push(item.color);
-
-      if (list.manufacturers.includes(item.manufacturers) === false)
-        list.manufacturers.push(item.manufacturerName);
-
-      return list;
+    manufacturers.map(item => {
+      return listManufacturers.push(item.name);
     });
 
-    return list;
+    return listManufacturers;
   };
 
-  render() {
-    const list = this.listSelect(this.props.cars);
+  const list = listSelect(manufacturers);
 
-    return (
-      <div className="filter-company">
-        <Select list={list.colors} selectLabel="All car colors" label="Color" />
-        <Select
-          list={list.manufacturers}
-          selectLabel="All manufacturers"
-          label="Manufacturers"
-        />
-        <div className="filter-company__btn">
-          <Button label="Filter" />
-        </div>
+  return (
+    <div className="filter-company">
+      <Select list={colors} selectLabel="All car colors" label="Color" />
+      <Select
+        list={list}
+        selectLabel="All manufacturers"
+        label="Manufacturers"
+      />
+      <div className="filter-company__btn">
+        <Button label="Filter" />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Filter;

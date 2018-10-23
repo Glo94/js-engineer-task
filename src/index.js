@@ -36,7 +36,7 @@ ReactDOM.render(
       <Header />
       <Switch>
         <Route exact path="/" component={AsyncHome} />
-        <Route path="/car-details" component={AsyncCarDetails} />
+        <Route path="/car-details/:id" component={AsyncCarDetails} />
       </Switch>
       <Footer />
     </div>

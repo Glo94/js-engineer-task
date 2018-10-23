@@ -13,7 +13,7 @@ const Result = () => (
         </div>
       </div>
       <div className="col-12 col-sm-5 p-0">
-        <Select label="Sort by" />
+        <Select list={[]} selectLabel="None" label="Sort by" />
       </div>
     </div>
     <div className="result-company__car row m-0">

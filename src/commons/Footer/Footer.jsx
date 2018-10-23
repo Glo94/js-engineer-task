@@ -4,7 +4,7 @@ const Footer = () => (
   <footer className="footer-company">
     <div className="footer-company__content">
       ©<a href="./">&nbsp;COMPANY-NAME&nbsp;</a>
-      2018 Copyright:
+      2018 Copyright
     </div>
   </footer>
 );

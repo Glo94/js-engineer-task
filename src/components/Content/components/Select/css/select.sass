@@ -1,0 +1,32 @@
+@import "../../../../../css/imports.sass"
+
+.select-company
+    margin-top: $normal-space
+    font-size: $extraSmall-size
+
+    &:first-child
+        margin-top: 0
+    
+    @include e('select')
+        position: relative
+
+        &::after
+            content: "▼"
+            position: absolute
+            color: $grey
+            pointer-events: none
+            transform: translateY(-50%)
+            top: 50%
+            right: 8px
+    
+    select
+        width: 100%
+        padding: $small-space
+        border-radius: 5px
+        border-color: $grey
+        font-size: $small-size
+
+        &:focus
+            outline: none !important
+            border-color: $orange
+            box-shadow: 0 0 3px 1px $orange

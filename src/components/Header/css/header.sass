@@ -1,0 +1,20 @@
+@import "../../../css/imports.sass"
+
+.header-company
+    padding: $large-space
+    height: 80px
+    font-size: $small-size
+
+    @include e('logo')
+        width: 314px
+        height: 64px
+
+    @include e('anchors')
+        display: flex
+        justify-content: flex-end
+
+        @include e('item')
+            margin-right: $large-space
+
+            &:last-child
+                margin-right: 0

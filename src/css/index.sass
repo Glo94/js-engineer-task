@@ -1,18 +1,33 @@
-@import './settings/settings.sass'
-@import './utils/utils.sass'
+@import './imports.sass'
+
+@font-face
+  font-family: 'Roboto'
+  font-style: normal
+  font-weight: 400
+  src: local('Roboto'), local('Roboto-Regular'), url(https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4mxK.woff2) format('woff2')
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD
+
+@font-face
+  font-family: 'Roboto'
+  font-style: normal
+  font-weight: 700
+  src: local('Roboto Bold'), local('Roboto-Bold'), url(http://fonts.gstatic.com/s/roboto/v15/d-6IYplOFocCacKzxwXSOJBw1xU1rKptJj_0jans920.woff2) format('woff2')
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000
 
 
+//starter css
 body,
-html
+html 
+	font-weight: normal
+	background-color: $white
+	font-size: $normal-size
+	color: $black
+	font-family: $font-regular
 	margin: 0
 	padding: 0
-	font-weight: normal
 	width: 100%
 	height: 100%
-    font-family: $font-regular
-    font-size: $normal-size
-    color: $black
-    background-color: $white
+
 
 img
 	border: 0
@@ -64,3 +79,11 @@ h5,
 h6
 	font-size: 100%
 	font-weight: normal
+//end - starter css
+
+
+
+//imports	
+@import '../components/Header/css/header.sass'
+@import '../components/Footer/css/footer.sass'
+@import '../components/Content/css/content.sass'

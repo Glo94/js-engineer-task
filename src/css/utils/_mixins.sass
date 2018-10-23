@@ -3,6 +3,7 @@
 @mixin btn()
     width: 128px
     height: 32px
+    line-height: 16px
     background-color: $orange
     outline: 0 none !important
     cursor: pointer
@@ -10,4 +11,8 @@
     color: $white
     border-radius: 2px
     &:hover
-        background-color: $darkOrange
+        background-color: $darkOrange 
+    &:active
+        color: $grey
+    &:focus
+        box-shadow: none

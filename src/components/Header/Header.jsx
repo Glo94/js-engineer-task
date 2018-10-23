@@ -1,17 +1,23 @@
-import React, { Component } from "react";
-import logo from "../../assets/img/logo.png";
+import React from "react";
+import logo from "../../assets/img/logo-exemple.png";
 
 const Header = () => (
-  <nav className="navbar navbar-light border-bottom">
-    <div className="col-6">
+  <nav className="header-company navbar navbar-light border-bottom">
+    <div className="col-6 p-0">
       <a className="navbar-brand" href="./">
-        <img src={logo} alt="" />
+        <img className="header-company__logo" src={logo} alt="" />
       </a>
     </div>
-    <div className="col-6">
-      <a href="./">Purchase</a>
-      <a href="./">My Orders</a>
-      <a href="./">Sell</a>
+    <div className="header-company__anchors col-6 p-0">
+      <a className="header-company__anchors__item" href="./">
+        Purchase
+      </a>
+      <a className="header-company__anchors__item" href="./">
+        My Orders
+      </a>
+      <a className="header-company__anchors__item" href="./">
+        Sell
+      </a>
     </div>
   </nav>
 );

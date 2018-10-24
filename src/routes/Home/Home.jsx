@@ -50,12 +50,12 @@ class Home extends Component {
   render() {
     const { cars, colors, manufacturers, totalPageCount, page } = this.state;
     return (
-      <div className="home-company container-fluid">
-        <div className="row m-0">
-          <div className="col-12 col-sm-4">
+      <div className="home-company">
+        <div className="home-company__row">
+          <div className="column column--4">
             <Filter cars={cars} colors={colors} manufacturers={manufacturers} />
           </div>
-          <div className="col-12 col-sm-8">
+          <div className="column column--8">
             <Result cars={cars} totalPageCount={totalPageCount} page={page} />
           </div>
         </div>

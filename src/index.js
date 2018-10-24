@@ -2,9 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom";
 import * as serviceWorker from "./utils/serviceWorker";
 
-//bootstrap import
-import "bootstrap/dist/css/bootstrap.min.css";
-
 //my style
 import "./css/index.sass";
 

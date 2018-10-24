@@ -82,6 +82,26 @@ h6
 //end - starter css
 
 
+//grid
+
+.column
+	position: relative
+	width: 100%
+
+	@include m('4')
+		max-width: 33.33%
+
+	@include m('5')
+		max-width: 41.66%
+
+	@include m('7')
+	    max-width: 58.33%
+
+	@include m('8')
+		max-width: 66.66%
+//end-grid
+
+
 
 //imports	
 @import '../commons/Header/css/header.sass'

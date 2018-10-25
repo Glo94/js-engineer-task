@@ -5,9 +5,8 @@
     justify-content: space-between
     width: 100%
     margin: 0 25%
-    a
-        color: $orange
+    font-size: $small-size
 
-        &:hover
-            text-decoration: underline
-            color: $darkOrange
+    @include e('button')
+        @include link()
+        font-size: $small-size

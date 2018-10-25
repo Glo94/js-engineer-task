@@ -3,36 +3,50 @@ import Select from "../../../../commons/Select/Select";
 import Car from "../Car/Car";
 import Pagination from "../Pagination/Pagination";
 
-const sort = ["none", "Mileage - Ascending", "Mileage - Descending"];
+const sort = ["None", "Mileage - Ascending", "Mileage - Descending"];
 
-const Result = ({ cars, totalPageCount, page }) => (
+const Result = ({
+  cars,
+  totalPageCount,
+  page,
+  valueOfSelect,
+  setStateFunction,
+  openSelect,
+  resetSelect,
+  movePage
+}) => (
   <div className="result-company">
     <div className="result-company__row">
       <div className="result-company__row__text column column--7">
         <div className="result-company__row__text__first">Available cars</div>
         <div className="result-company__row__text__second">
-          {`Showing ${cars.length * page} of ${totalPageCount} results`}
+          {`Showing ${cars.length * page} of ${totalPageCount * 10} results`}
         </div>
       </div>
       <div className="column column--5">
-        <Select list={sort} selectLabel="None" label="Sort by" />
-      </div>
-    </div>
-    <div className="result-company__row">
-      <div className="result-company__row__car">
-        {cars.map(car => {
-          return <Car key={car.stockNumber} car={car} />;
-        })}
-      </div>
-    </div>
-    <div className="result-company__row">
-      <div className="result-company__row__pagination">
-        <Pagination
-          totalPageCount={totalPageCount}
-          page={page}
-          length={cars.length}
+        <Select
+          valueOfSelect={valueOfSelect}
+          list={sort}
+          selectLabel="None"
+          label="Sort by"
+          id="Sort"
+          setStateFunction={setStateFunction}
+          openSelect={openSelect}
+          resetSelect={resetSelect}
         />
       </div>
+    </div>
+    <div className="result-company__row result-company__row--car">
+      {cars.map(car => {
+        return <Car key={car.stockNumber} car={car} />;
+      })}
+    </div>
+    <div className="result-company__row">
+      <Pagination
+        totalPageCount={totalPageCount}
+        page={page}
+        movePage={movePage}
+      />
     </div>
   </div>
 );

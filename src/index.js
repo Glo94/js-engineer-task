@@ -18,7 +18,7 @@ import Loadable from "react-loadable";
 import Loading from "./utils/Loading";
 
 const AsyncHome = Loadable({
-  loader: () => import("./containers/AppContainer"),
+  loader: () => import("./routes/Home/Home"),
   loading: Loading
 });
 

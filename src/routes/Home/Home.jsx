@@ -8,8 +8,7 @@ import {
   getManufacturers,
   getFilter,
   getSort,
-  getMove,
-  getTotalCars
+  getMove
 } from "../../js/service";
 
 class Home extends Component {

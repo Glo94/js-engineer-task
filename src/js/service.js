@@ -1,9 +1,8 @@
-const carsURL = "http://localhost:3001/cars?page=1";
 const colorsURL = "http://localhost:3001/colors";
 const manufacturersURL = "http://localhost:3001/manufacturers";
 
 export function getCars(cars) {
-  let car = fetch(carsURL)
+  let car = fetch(cars)
     .then(res => res.json())
     .then(data => {
       return data;
@@ -30,7 +29,7 @@ export function getManufacturers(manufacturers) {
   return manufacturer;
 }
 
-export function getFilter(color, manufacturer, page, url) {
+export function getFilter(url) {
   let filter = fetch(url)
     .then(res => res.json())
     .then(data => {

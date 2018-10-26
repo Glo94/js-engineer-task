@@ -8,12 +8,14 @@ import {
   getManufacturers,
   getFilter,
   getSort,
-  getMove
+  getMove,
+  getTotalCars
 } from "../../js/service";
 
 class Home extends Component {
   state = {
     cars: [],
+    totalCars: null,
     colors: ["All Colors"],
     manufacturers: [],
     page: 1,
@@ -32,7 +34,7 @@ class Home extends Component {
   };
 
   componentWillMount() {
-    let cars = getCars();
+    let cars = getCars(this.state.carsUrl);
     let colors = getColors();
     let manufacturers = getManufacturers();
 
@@ -45,6 +47,8 @@ class Home extends Component {
       }));
     });
   }
+
+  componentDidUpdate() {}
 
   handleChangeSelectOption = e => {
     let colors = this.state.valueOfSelect.colors;
@@ -104,15 +108,14 @@ class Home extends Component {
   handleClickFilter = () => {
     let color = this.state.valueOfSelect.colors;
     let manufacturer = this.state.valueOfSelect.manufacturers;
-    let page = this.state.page;
 
     let filterUrl = [
-      "http://localhost:3001/cars?page=",
+      "http://localhost:3001/cars?page=1",
       "&color=",
       "&manufacturer="
     ];
 
-    let url = filterUrl[0] + page;
+    let url = filterUrl[0];
     if (manufacturer !== "All manufacturers" && color === "All Colors") {
       url += filterUrl[2] + manufacturer;
     } else if (color !== "All Colors" && manufacturer === "All manufacturers") {
@@ -120,7 +123,8 @@ class Home extends Component {
     } else if (manufacturer !== "All manufacturers" && color !== "All Colors") {
       url += filterUrl[1] + color + filterUrl[2] + manufacturer;
     }
-    let cars = getFilter(color, manufacturer, page, url);
+
+    let cars = getFilter(url);
     Promise.resolve(cars).then(result => {
       this.setState(prevState => ({
         cars: result.cars,
@@ -129,7 +133,8 @@ class Home extends Component {
         valueOfSelect: {
           ...prevState.valueOfSelect,
           sort: "None"
-        }
+        },
+        page: 1
       }));
     });
   };
@@ -191,11 +196,18 @@ class Home extends Component {
         carsUrl: url
       });
     });
+  };
 
-    /* this.setState(prevState => ({
-      cars: [...prevState.cars],
-      url: carsAPI
-    })); */
+  totalCars = (url, page, totalPageCount) => {
+    let split = url.split("page=" + page);
+    let newUrl = split[0] + "page=" + totalPageCount;
+    if (split[1] !== "") newUrl += split[1];
+    let totalCarsNumber = getCars(newUrl);
+    Promise.resolve(totalCarsNumber).then(result => {
+      this.setState({
+        totalCars: result.cars.length
+      });
+    });
   };
 
   render() {
@@ -206,8 +218,13 @@ class Home extends Component {
       totalPageCount,
       page,
       valueOfSelect,
-      openSelect
+      openSelect,
+      carsUrl,
+      totalCars
     } = this.state;
+
+    this.totalCars(carsUrl, page, totalPageCount);
+
     return (
       <div className="home-company">
         <div className="home-company__row">
@@ -233,6 +250,7 @@ class Home extends Component {
               openSelect={openSelect}
               resetSelect={this.resetOpenSelect}
               movePage={this.movePage}
+              totalItem={totalCars}
             />
           </div>
         </div>

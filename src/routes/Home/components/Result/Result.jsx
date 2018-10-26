@@ -13,14 +13,19 @@ const Result = ({
   setStateFunction,
   openSelect,
   resetSelect,
-  movePage
+  movePage,
+  totalItem
 }) => (
   <div className="result-company">
     <div className="result-company__row">
       <div className="result-company__row__text column column--7">
         <div className="result-company__row__text__first">Available cars</div>
         <div className="result-company__row__text__second">
-          {`Showing ${cars.length * page} of ${totalPageCount * 10} results`}
+          {`Showing ${
+            cars.length === 10
+              ? cars.length * page
+              : 10 * (page - 1) + totalItem
+          } of ${(totalPageCount - 1) * 10 + totalItem} results`}
         </div>
       </div>
       <div className="column column--5">

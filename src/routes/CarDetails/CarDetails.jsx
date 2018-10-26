@@ -1,6 +1,6 @@
-import React from "react";
+import { React, Component } from "react";
 
-class CarDetails extends React.Component {
+class CarDetails extends Component {
   render() {
     const {
       pictureUrl,

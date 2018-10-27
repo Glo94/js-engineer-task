@@ -16,6 +16,11 @@ import Footer from "./commons/Footer/Footer";
 import Loadable from "react-loadable";
 import Loading from "./utils/Loading";
 
+//Provider
+import { Provider } from "react-redux";
+//store
+import store from "./redux/store/store";
+
 const AsyncHome = Loadable({
   loader: () => import("./routes/Home/Home"),
   loading: Loading
@@ -27,16 +32,18 @@ const AsyncCarDetails = Loadable({
 });
 
 ReactDOM.render(
-  <BrowserRouter>
-    <div>
-      <Header />
-      <Switch>
-        <Route exact path="/" component={AsyncHome} />
-        <Route path="/car-details/:id" component={AsyncCarDetails} />
-      </Switch>
-      <Footer />
-    </div>
-  </BrowserRouter>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <div>
+        <Header />
+        <Switch>
+          <Route exact path="/" component={AsyncHome} />
+          <Route path="/car-details/:id" component={AsyncCarDetails} />
+        </Switch>
+        <Footer />
+      </div>
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 );
 

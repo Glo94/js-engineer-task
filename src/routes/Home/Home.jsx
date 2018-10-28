@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import Filter from "./components/Filter/Filter";
 import Result from "./components/Result/Result";
 
+//redux
+import { connect } from "react-redux";
+
 import {
   getCars,
   getColors,
@@ -13,12 +16,10 @@ import {
 
 class Home extends Component {
   state = {
-    cars: [],
     totalCars: null,
     colors: ["All Colors"],
     manufacturers: [],
     page: 1,
-    totalPageCount: null,
     valueOfSelect: {
       colors: "All Colors",
       manufacturers: "All manufacturers",
@@ -33,21 +34,16 @@ class Home extends Component {
   };
 
   componentWillMount() {
-    let cars = getCars(this.state.carsUrl);
     let colors = getColors();
     let manufacturers = getManufacturers();
 
-    Promise.all([cars, colors, manufacturers]).then(result => {
+    Promise.all([colors, manufacturers]).then(result => {
       this.setState(prevState => ({
-        cars: result[0].cars,
-        totalPageCount: result[0].totalPageCount,
-        colors: [...prevState.colors, ...result[1].colors],
-        manufacturers: [...prevState.manufacturers, ...result[2].manufacturers]
+        colors: [...prevState.colors, ...result[0].colors],
+        manufacturers: [...prevState.manufacturers, ...result[1].manufacturers]
       }));
     });
   }
-
-  componentDidUpdate() {}
 
   handleChangeSelectOption = e => {
     let colors = this.state.valueOfSelect.colors;
@@ -141,7 +137,7 @@ class Home extends Component {
   movePage = e => {
     let carsUrl = this.state.carsUrl;
     let thisPage = this.state.page;
-    console.log(thisPage);
+
     switch (e.target.id) {
       case "next":
         if (thisPage < this.state.totalPageCount) thisPage++;
@@ -165,7 +161,6 @@ class Home extends Component {
       newUrl += "&" + split[1];
     }
     let move = getMove(newUrl);
-    console.log(newUrl);
 
     Promise.resolve(move).then(result => {
       this.setState({
@@ -187,7 +182,6 @@ class Home extends Component {
     } else {
       url = split[0];
     }
-    console.log(url);
     let sort = getSort(url);
     Promise.resolve(sort).then(result => {
       this.setState({
@@ -211,10 +205,8 @@ class Home extends Component {
 
   render() {
     const {
-      cars,
       colors,
       manufacturers,
-      totalPageCount,
       page,
       valueOfSelect,
       openSelect,
@@ -222,7 +214,7 @@ class Home extends Component {
       totalCars
     } = this.state;
 
-    this.totalCars(carsUrl, page, totalPageCount);
+    this.totalCars(carsUrl, page, this.props.listOfCars.totalPageCount);
 
     return (
       <div className="home-company">
@@ -230,7 +222,7 @@ class Home extends Component {
           <div className="column column--4">
             <Filter
               setStateFunction={this.handleChangeSelectOption}
-              cars={cars}
+              cars={this.props.listOfCars.cars}
               colors={colors}
               manufacturers={manufacturers}
               valueOfSelect={valueOfSelect}
@@ -242,8 +234,8 @@ class Home extends Component {
           <div className="column column--8">
             <Result
               setStateFunction={this.handleChangeSelectOption}
-              cars={cars}
-              totalPageCount={totalPageCount}
+              cars={this.props.listOfCars.cars}
+              totalPageCount={this.props.listOfCars.totalPageCount}
               page={page}
               valueOfSelect={valueOfSelect.sort}
               openSelect={openSelect}
@@ -258,4 +250,13 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    listOfCars: {
+      cars: state.listOfCars.cars,
+      totalPageCount: state.listOfCars.totalPageCount
+    }
+  };
+};
+
+export default connect(mapStateToProps)(Home);

@@ -6,43 +6,31 @@ import * as serviceWorker from "./utils/serviceWorker";
 import "./css/index.sass";
 
 //Router
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-
-//components
-import Header from "./commons/Header/Header";
-import Footer from "./commons/Footer/Footer";
-
-//loader
-import Loadable from "react-loadable";
-import Loading from "./utils/Loading";
+import { BrowserRouter } from "react-router-dom";
+import routes from "./routes/routes";
 
 //Provider
 import { Provider } from "react-redux";
+
+//actions
+import { loadCars } from "./redux/actions/carActions";
+
 //store
-import store from "./redux/store/store";
+import configureStore from "./redux/store/store";
 
-const AsyncHome = Loadable({
-  loader: () => import("./routes/Home/Home"),
-  loading: Loading
-});
+//service
+import * as service from "./js/service";
 
-const AsyncCarDetails = Loadable({
-  loader: () => import("./routes/CarDetails/CarDetails"),
-  loading: Loading
+const store = configureStore();
+
+let carsList = service.getCars("http://localhost:3001/cars?page=1");
+Promise.resolve(carsList).then(result => {
+  store.dispatch(loadCars(result));
 });
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <div>
-        <Header />
-        <Switch>
-          <Route exact path="/" component={AsyncHome} />
-          <Route path="/car-details/:id" component={AsyncCarDetails} />
-        </Switch>
-        <Footer />
-      </div>
-    </BrowserRouter>
+    <BrowserRouter>{routes}</BrowserRouter>
   </Provider>,
   document.getElementById("root")
 );

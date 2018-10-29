@@ -1,6 +1,25 @@
 import React, { Component } from "react";
 
+//redux
+import { connect } from "react-redux";
+
+//actions
+import {
+  addCarInList,
+  removeCarFromList
+} from "../../redux/actions/wishListActions";
+
 class CarDetails extends Component {
+  handleClick = () => {
+    const { dispatch, wishList } = this.props;
+    let id = this.props.location.state.stockNumber;
+    if (wishList.includes(id)) {
+      dispatch(removeCarFromList(id));
+    } else {
+      dispatch(addCarInList(id));
+    }
+  };
+
   render() {
     const {
       pictureUrl,
@@ -41,7 +60,11 @@ class CarDetails extends Component {
                 collection of favourite items.
               </div>
               <div className="car-details-company__container__right__wishlist__btn">
-                <button>Save</button>
+                <button onClick={this.handleClick}>
+                  {this.props.wishList.includes(stockNumber)
+                    ? "Remove"
+                    : "Save"}
+                </button>
               </div>
             </div>
           </div>
@@ -51,4 +74,10 @@ class CarDetails extends Component {
   }
 }
 
-export default CarDetails;
+const mapStateToProps = (state, ownProps) => {
+  return {
+    wishList: state.wishListReducer
+  };
+};
+
+export default connect(mapStateToProps)(CarDetails);

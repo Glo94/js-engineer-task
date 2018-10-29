@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
 import { loadReducer } from "./loadReducer";
+import { wishListReducer } from "./wishListReducer";
 
 const RootReducer = combineReducers({
-  loadReducer
+  loadReducer,
+  wishListReducer
 });
 
 export default RootReducer;

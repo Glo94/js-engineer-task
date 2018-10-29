@@ -4,5 +4,6 @@ export default {
     totalPageCount: null
   },
   colors: ["All Colors"],
-  manufacturers: []
+  manufacturers: [],
+  wishList: []
 };

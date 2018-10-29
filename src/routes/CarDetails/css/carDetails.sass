@@ -1,0 +1,36 @@
+@import "../../../css/imports.sass"
+
+.car-details-company
+    @include e('img')
+        background-color: $grey
+        text-align: center
+
+    @include e('container')
+        max-width: 800px
+        margin: 0 auto
+        display: flex
+        flex-wrap: wrap
+        font-size: $small-size
+        padding-top: $large-space
+
+        @include e('left')
+            @include e('title')
+                font-size: $large-size
+                font-weight: $bold
+            @include e('sub')
+                margin-top: $large-space
+                font-size: $normal-size
+            @include e('text')
+                margin-top: $large-space
+
+        @include e('right')
+            @include e('wishlist')
+                margin-left: $large-space
+                padding: $large-space
+                border: 2px solid $grey
+
+                @include e('btn')
+                    text-align: right
+                    padding-top: $large-space
+                    button
+                        @include btn()

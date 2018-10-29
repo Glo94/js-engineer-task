@@ -5,14 +5,10 @@ import Result from "./components/Result/Result";
 //redux
 import { connect } from "react-redux";
 
-import {
-  getCars,
-  getColors,
-  getManufacturers,
-  getFilter,
-  getSort,
-  getMove
-} from "../../js/service";
+//actions
+import { loadCars } from "../../redux/actions/loadActions";
+
+import { getCars, getFilter, getSort, getMove } from "../../js/service";
 
 class Home extends Component {
   state = {
@@ -105,11 +101,12 @@ class Home extends Component {
       url += filterUrl[1] + color + filterUrl[2] + manufacturer;
     }
 
+    const { dispatch } = this.props;
+
     let cars = getFilter(url);
     Promise.resolve(cars).then(result => {
+      dispatch(loadCars(result));
       this.setState(prevState => ({
-        cars: result.cars,
-        totalPageCount: result.totalPageCount,
         carsUrl: url,
         valueOfSelect: {
           ...prevState.valueOfSelect,
@@ -124,9 +121,11 @@ class Home extends Component {
     let carsUrl = this.state.carsUrl;
     let thisPage = this.state.page;
 
+    const { dispatch, listOfCars } = this.props;
+
     switch (e.target.id) {
       case "next":
-        if (thisPage < this.state.totalPageCount) thisPage++;
+        if (thisPage < listOfCars.totalPageCount) thisPage++;
         break;
       case "previous":
         if (thisPage > 1) thisPage--;
@@ -135,7 +134,7 @@ class Home extends Component {
         thisPage = 1;
         break;
       case "last":
-        thisPage = this.state.totalPageCount;
+        thisPage = listOfCars.totalPageCount;
         break;
       default:
         break;
@@ -149,9 +148,9 @@ class Home extends Component {
     let move = getMove(newUrl);
 
     Promise.resolve(move).then(result => {
+      console.log(result);
+      dispatch(loadCars(result));
       this.setState({
-        cars: result.cars,
-        totalPageCount: result.totalPageCount,
         carsUrl: newUrl,
         page: thisPage
       });
@@ -163,6 +162,8 @@ class Home extends Component {
     let split = url.split("&sort=");
     let id = e.target.value.split(" - ");
 
+    const { dispatch } = this.props;
+
     if (id[0] !== "None") {
       url = split[0] + `&sort=${id[1].substr(0, 3).toLowerCase()}`;
     } else {
@@ -170,8 +171,8 @@ class Home extends Component {
     }
     let sort = getSort(url);
     Promise.resolve(sort).then(result => {
+      dispatch(loadCars(result));
       this.setState({
-        cars: result.cars,
         carsUrl: url
       });
     });

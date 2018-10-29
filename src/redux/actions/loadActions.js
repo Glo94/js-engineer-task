@@ -1,6 +1,6 @@
 import * as types from "./actionTypes";
 
-export function loadElement(a) {
+export function loadCars(a) {
   return { type: types.LOAD_ELEMENT_SUCCESS, a };
 }
 

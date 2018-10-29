@@ -14,7 +14,7 @@ import { Provider } from "react-redux";
 
 //actions
 import {
-  loadElement,
+  loadCars,
   loadColors,
   loadManufacturers
 } from "./redux/actions/loadActions";
@@ -33,8 +33,7 @@ let manufacturersList = service.getManufacturers(
   "http://localhost:3001/manufacturers"
 );
 Promise.all([carsList, colorsList, manufacturersList]).then(result => {
-  console.log(result);
-  store.dispatch(loadElement(result[0]));
+  store.dispatch(loadCars(result[0]));
   store.dispatch(loadColors(result[1].colors));
   store.dispatch(loadManufacturers(result[2].manufacturers));
 });

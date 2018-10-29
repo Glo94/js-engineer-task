@@ -6,7 +6,7 @@ export function loadReducer(state = initialState, action) {
     case types.LOAD_ELEMENT_SUCCESS:
       return { ...state, listOfCars: action.a };
     case types.LOAD_COLORS_SUCCESS:
-      return { ...state, colors: action.b };
+      return { ...state, colors: [...state.colors, ...action.b] };
     case types.LOAD_MANUFACTURERS_SUCCESS:
       return { ...state, manufacturers: action.c };
 

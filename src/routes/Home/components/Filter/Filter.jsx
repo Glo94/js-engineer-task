@@ -15,7 +15,6 @@ const Filter = ({
 }) => {
   const listSelect = cars => {
     let listManufacturers = ["All manufacturers"];
-
     manufacturers.map(item => {
       return listManufacturers.push(item.name);
     });

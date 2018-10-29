@@ -13,7 +13,11 @@ import routes from "./routes/routes";
 import { Provider } from "react-redux";
 
 //actions
-import { loadCars } from "./redux/actions/carActions";
+import {
+  loadElement,
+  loadColors,
+  loadManufacturers
+} from "./redux/actions/loadActions";
 
 //store
 import configureStore from "./redux/store/store";
@@ -24,8 +28,15 @@ import * as service from "./js/service";
 const store = configureStore();
 
 let carsList = service.getCars("http://localhost:3001/cars?page=1");
-Promise.resolve(carsList).then(result => {
-  store.dispatch(loadCars(result));
+let colorsList = service.getColors("http://localhost:3001/colors");
+let manufacturersList = service.getManufacturers(
+  "http://localhost:3001/manufacturers"
+);
+Promise.all([carsList, colorsList, manufacturersList]).then(result => {
+  console.log(result);
+  store.dispatch(loadElement(result[0]));
+  store.dispatch(loadColors(result[1].colors));
+  store.dispatch(loadManufacturers(result[2].manufacturers));
 });
 
 ReactDOM.render(

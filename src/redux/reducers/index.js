@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import listOfCars from "./carsReducer";
+import { loadReducer } from "./loadReducer";
 
 const RootReducer = combineReducers({
-  listOfCars
+  loadReducer
 });
 
 export default RootReducer;

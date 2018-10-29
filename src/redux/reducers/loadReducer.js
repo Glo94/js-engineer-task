@@ -1,0 +1,16 @@
+import * as types from "../actions/actionTypes";
+import initialState from "./initialState";
+
+export function loadReducer(state = initialState, action) {
+  switch (action.type) {
+    case types.LOAD_ELEMENT_SUCCESS:
+      return { ...state, listOfCars: action.a };
+    case types.LOAD_COLORS_SUCCESS:
+      return { ...state, colors: action.b };
+    case types.LOAD_MANUFACTURERS_SUCCESS:
+      return { ...state, manufacturers: action.c };
+
+    default:
+      return state;
+  }
+}

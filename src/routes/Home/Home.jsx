@@ -17,8 +17,6 @@ import {
 class Home extends Component {
   state = {
     totalCars: null,
-    colors: ["All Colors"],
-    manufacturers: [],
     page: 1,
     valueOfSelect: {
       colors: "All Colors",
@@ -32,18 +30,6 @@ class Home extends Component {
     },
     carsUrl: "http://localhost:3001/cars?page=1"
   };
-
-  componentWillMount() {
-    let colors = getColors();
-    let manufacturers = getManufacturers();
-
-    Promise.all([colors, manufacturers]).then(result => {
-      this.setState(prevState => ({
-        colors: [...prevState.colors, ...result[0].colors],
-        manufacturers: [...prevState.manufacturers, ...result[1].manufacturers]
-      }));
-    });
-  }
 
   handleChangeSelectOption = e => {
     let colors = this.state.valueOfSelect.colors;
@@ -204,25 +190,16 @@ class Home extends Component {
   };
 
   render() {
-    const {
-      colors,
-      manufacturers,
-      page,
-      valueOfSelect,
-      openSelect,
-      carsUrl,
-      totalCars
-    } = this.state;
-
-    this.totalCars(carsUrl, page, this.props.listOfCars.totalPageCount);
-
+    const { page, valueOfSelect, openSelect, carsUrl, totalCars } = this.state;
+    const { listOfCars, colors, manufacturers } = this.props;
+    this.totalCars(carsUrl, page, listOfCars.totalPageCount);
     return (
       <div className="home-company">
         <div className="home-company__row">
           <div className="column column--4">
             <Filter
               setStateFunction={this.handleChangeSelectOption}
-              cars={this.props.listOfCars.cars}
+              cars={listOfCars.cars}
               colors={colors}
               manufacturers={manufacturers}
               valueOfSelect={valueOfSelect}
@@ -234,8 +211,8 @@ class Home extends Component {
           <div className="column column--8">
             <Result
               setStateFunction={this.handleChangeSelectOption}
-              cars={this.props.listOfCars.cars}
-              totalPageCount={this.props.listOfCars.totalPageCount}
+              cars={listOfCars.cars}
+              totalPageCount={listOfCars.totalPageCount}
               page={page}
               valueOfSelect={valueOfSelect.sort}
               openSelect={openSelect}
@@ -253,9 +230,11 @@ class Home extends Component {
 const mapStateToProps = (state, ownProps) => {
   return {
     listOfCars: {
-      cars: state.listOfCars.cars,
-      totalPageCount: state.listOfCars.totalPageCount
-    }
+      cars: state.loadReducer.listOfCars.cars,
+      totalPageCount: state.loadReducer.listOfCars.totalPageCount
+    },
+    manufacturers: state.loadReducer.manufacturers,
+    colors: state.loadReducer.colors
   };
 };
 

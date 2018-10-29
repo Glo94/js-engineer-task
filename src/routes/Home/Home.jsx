@@ -12,7 +12,7 @@ import { getCars, getFilter, getSort, getMove } from "../../js/service";
 
 class Home extends Component {
   state = {
-    totalCars: null,
+    totalCars: 1000,
     page: 1,
     valueOfSelect: {
       colors: "All Colors",
@@ -26,6 +26,12 @@ class Home extends Component {
     },
     carsUrl: "http://localhost:3001/cars?page=1"
   };
+
+  componentDidUpdate() {
+    const { carsUrl, page } = this.state;
+    const { listOfCars } = this.props;
+    this.totalCars(carsUrl, page, listOfCars.totalPageCount);
+  }
 
   handleChangeSelectOption = e => {
     let colors = this.state.valueOfSelect.colors;
@@ -183,17 +189,18 @@ class Home extends Component {
     let newUrl = split[0] + "page=" + totalPageCount;
     if (split[1] !== "") newUrl += split[1];
     let totalCarsNumber = getCars(newUrl);
+
     Promise.resolve(totalCarsNumber).then(result => {
       this.setState({
-        totalCars: result.cars.length
+        totalCars: (totalPageCount - 1) * 10 + result.cars.length
       });
     });
   };
 
   render() {
-    const { page, valueOfSelect, openSelect, carsUrl, totalCars } = this.state;
+    const { page, valueOfSelect, openSelect, totalCars } = this.state;
     const { listOfCars, colors, manufacturers } = this.props;
-    this.totalCars(carsUrl, page, listOfCars.totalPageCount);
+
     return (
       <div className="home-company">
         <div className="home-company__row">

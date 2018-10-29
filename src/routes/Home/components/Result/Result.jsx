@@ -24,8 +24,8 @@ const Result = ({
           {`Showing ${
             cars.length === 10
               ? cars.length * page
-              : 10 * (page - 1) + totalItem
-          } of ${(totalPageCount - 1) * 10 + totalItem} results`}
+              : 10 * (page - 1) + cars.length
+          } of ${totalItem} results`}
         </div>
       </div>
       <div className="column column--5">

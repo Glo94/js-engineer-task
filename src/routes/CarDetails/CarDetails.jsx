@@ -1,4 +1,8 @@
 import React, { Component } from "react";
+import {
+  NotificationContainer,
+  NotificationManager
+} from "react-notifications";
 
 //redux
 import { connect } from "react-redux";
@@ -15,8 +19,18 @@ class CarDetails extends Component {
     let id = this.props.location.state.stockNumber;
     if (wishList.includes(id)) {
       dispatch(removeCarFromList(id));
+      NotificationManager.error(
+        `This car (Stock #${id}) has been deleted from your collection!`,
+        "Removed",
+        3000
+      );
     } else {
       dispatch(addCarInList(id));
+      NotificationManager.success(
+        `This car (Stock #${id}) has been saved in your collection!`,
+        "Saved",
+        3000
+      );
     }
   };
 
@@ -56,8 +70,10 @@ class CarDetails extends Component {
           <div className="car-details-company__container__right  column column--5">
             <div className="car-details-company__container__right__wishlist">
               <div className="ar-details-company__container__right__wishlist__text">
-                If you like this car, click the button and save it in your
-                collection of favourite items.
+              {this.props.wishList.includes(stockNumber)
+                ? "This car is in your collection. Click the button and remove it!"
+                : "If you like this car, click the button and save it in your collection of favourite items."
+              }
               </div>
               <div className="car-details-company__container__right__wishlist__btn">
                 <button onClick={this.handleClick}>
@@ -69,6 +85,7 @@ class CarDetails extends Component {
             </div>
           </div>
         </div>
+        <NotificationContainer />
       </div>
     );
   }

@@ -3,8 +3,7 @@ import React from "react";
 const Footer = () => (
   <footer className="footer-company">
     <div className="footer-company__content">
-      ©<a href="./">&nbsp;COMPANY-NAME&nbsp;</a>
-      2018 Copyright
+      © AUTO1 Group 2018
     </div>
   </footer>
 );

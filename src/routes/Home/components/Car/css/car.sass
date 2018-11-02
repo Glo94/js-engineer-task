@@ -7,17 +7,31 @@
     display: flex
     justify-content: flex-start
     padding: $normal-space
+    flex-direction: column
+
+    @media (min-width: 768px)
+        flex-direction: row
 
     @include e('img')
+        text-align: center
+        
+        @media (min-width: 768px)
+            text-align: left
+        
         img
             width: 100px
             height: auto
         
     @include e('details')
-        margin-left: $large-space
+        margin-left: 0
+        padding-top: $large-space
         display: flex
         flex-direction: column
         justify-content: space-around
+        
+        @media (min-width: 768px)
+            margin-left: $large-space
+            padding-top: 0
 
         label
             font-size: $small-size

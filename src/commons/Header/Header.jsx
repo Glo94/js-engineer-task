@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import logo from "../../assets/img/logo-exemple.png";
+import logo from "../../assets/img/logo.png"
 
 const Header = () => (
   <nav className="header-company">

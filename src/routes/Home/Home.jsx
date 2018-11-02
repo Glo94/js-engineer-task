@@ -24,7 +24,7 @@ class Home extends Component {
       selectSort: false,
       selectManufacturers: false
     },
-    carsUrl: "http://localhost:3001/cars?page=1"
+    carsUrl: "http://localhost:3001/cars?page=1",
   };
 
   componentDidUpdate() {
@@ -32,6 +32,13 @@ class Home extends Component {
     const { listOfCars } = this.props;
     this.totalCars(carsUrl, page, listOfCars.totalPageCount);
   }
+  
+  componentDidMount () {
+    this._mounted = true
+ }
+ componentWillUnmount () {
+    this._mounted = false
+ }  
 
   handleChangeSelectOption = e => {
     let colors = this.state.valueOfSelect.colors;
@@ -54,13 +61,15 @@ class Home extends Component {
         break;
     }
 
-    this.setState({
-      valueOfSelect: {
-        colors: colors,
-        manufacturers: manufacturers,
-        sort: sort
-      }
-    });
+    if(this._mounted) {
+      this.setState({
+        valueOfSelect: {
+          colors: colors,
+          manufacturers: manufacturers,
+          sort: sort
+        }
+      });
+    }
     let parentID = e.target.parentNode.previousSibling.id;
     let triggerClick = document.getElementById(parentID);
     triggerClick.click();
@@ -83,9 +92,11 @@ class Home extends Component {
         return (initialState[item] = false);
       }
     });
-    this.setState({
-      openSelect: initialState
-    });
+    if(this._mounted) {
+      this.setState({
+        openSelect: initialState,
+      });
+    }
   };
 
   handleClickFilter = () => {
@@ -112,14 +123,16 @@ class Home extends Component {
     let cars = getFilter(url);
     Promise.resolve(cars).then(result => {
       dispatch(loadCars(result));
-      this.setState(prevState => ({
-        carsUrl: url,
-        valueOfSelect: {
-          ...prevState.valueOfSelect,
-          sort: "None"
-        },
-        page: 1
-      }));
+      if(this._mounted) {
+        this.setState(prevState => ({
+          carsUrl: url,
+          valueOfSelect: {
+            ...prevState.valueOfSelect,
+            sort: "None"
+          },
+          page: 1
+        }));
+      }
     });
   };
 
@@ -156,10 +169,12 @@ class Home extends Component {
     Promise.resolve(move).then(result => {
       console.log(result);
       dispatch(loadCars(result));
-      this.setState({
-        carsUrl: newUrl,
-        page: thisPage
-      });
+      if(this._mounted) {
+        this.setState({
+          carsUrl: newUrl,
+          page: thisPage
+        });
+      }
     });
   };
 
@@ -178,9 +193,11 @@ class Home extends Component {
     let sort = getSort(url);
     Promise.resolve(sort).then(result => {
       dispatch(loadCars(result));
-      this.setState({
-        carsUrl: url
-      });
+      if(this._mounted) {
+        this.setState({
+          carsUrl: url
+        });
+      }
     });
   };
 
@@ -191,9 +208,11 @@ class Home extends Component {
     let totalCarsNumber = getCars(newUrl);
 
     Promise.resolve(totalCarsNumber).then(result => {
-      this.setState({
-        totalCars: (totalPageCount - 1) * 10 + result.cars.length
-      });
+      if(this._mounted) {
+        this.setState({
+          totalCars: (totalPageCount - 1) * 10 + result.cars.length
+        });
+      }
     });
   };
 

@@ -7,20 +7,32 @@
     align-items: center
     justify-content: space-between
     padding: $large-space
-    height: 80px
+    height: auto
     font-size: $small-size
     border-bottom: 2px solid $grey
+	
+    @media (min-width: 768px)
+        height: 80px
 
     @include e('content')
         padding: 0
 
         @include e('logo')
-            width: 314px
-            height: 64px
+            width: 100%
+
+            @media (min-width: 768px)
+                width: 60%
 
     @include e('anchors')
         display: flex
-        justify-content: flex-end
+        justify-content: center
+        width: 100%
+        margin-top: $large-space
+
+        @media (min-width: 768px)
+            justify-content: flex-end
+            width: auto
+            margin-top: 0
 
         @include e('item')
             margin-right: $large-space

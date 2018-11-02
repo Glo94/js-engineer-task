@@ -7,11 +7,11 @@
 
     @include e('container')
         max-width: 800px
+        padding: $large-space
         margin: 0 auto
         display: flex
         flex-wrap: wrap
         font-size: $small-size
-        padding-top: $large-space
 
         @include e('left')
             @include e('title')
@@ -25,9 +25,14 @@
 
         @include e('right')
             @include e('wishlist')
-                margin-left: $large-space
+                margin-left: 0
                 padding: $large-space
                 border: 2px solid $grey
+                margin-top: $large-space
+
+                @media (min-width: 768px)
+                    margin-left: $large-space
+                    margin-top: 0
 
                 @include e('btn')
                     text-align: right

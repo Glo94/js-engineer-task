@@ -1,4 +1,5 @@
 @import './imports.sass'
+@import '../../node_modules/react-notifications/lib/notifications.css'
 
 @font-face
   font-family: 'Roboto'
@@ -88,19 +89,29 @@ h6
 	width: 100%
 
 	@include m('4')
-		max-width: 33.33%
+		max-width: 100%
+		@media (min-width: 768px)
+			max-width: 33.33%
 
 	@include m('5')
-		max-width: 41.66%
+		max-width: 100%
+		@media (min-width: 768px)
+			max-width: 41.66%
 
 	@include m('6')
-		max-width: 50%
+		max-width: 100%
+		@media (min-width: 768px)
+			max-width: 50%
 
 	@include m('7')
-	    max-width: 58.33%
+		max-width: 100%
+		@media (min-width: 768px)
+			max-width: 58.33%
 
 	@include m('8')
-		max-width: 66.66%
+		max-width: 100%
+		@media (min-width: 768px)
+			max-width: 66.66%
 //end-grid
 
 

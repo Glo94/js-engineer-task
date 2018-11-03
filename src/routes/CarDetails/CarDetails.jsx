@@ -4,6 +4,9 @@ import {
   NotificationManager
 } from "react-notifications";
 
+//service
+import { getCarStockNumber } from '../../js/service'
+
 //redux
 import { connect } from "react-redux";
 
@@ -13,10 +16,16 @@ import {
   removeCarFromList
 } from "../../redux/actions/wishListActions";
 
+import {
+  reciveCarDetails
+} from '../../redux/actions/loadActions'
+
+
 class CarDetails extends Component {
+
   handleClick = () => {
-    const { dispatch, wishList } = this.props;
-    let id = this.props.location.state.stockNumber;
+    const { dispatch, wishList, car } = this.props;
+    let id = car.stockNumber;
     if (wishList.includes(id)) {
       dispatch(removeCarFromList(id));
       NotificationManager.error(
@@ -34,31 +43,34 @@ class CarDetails extends Component {
     }
   };
 
-  render() {
-    const {
-      pictureUrl,
-      manufacturerName,
-      modelName,
-      fuelType,
-      mileage,
-      stockNumber,
-      color
-    } = this.props.location.state;
+  componentDidMount = () => {
+    const {car} = this.props
+    if(car!=='undefined'){
+      let cod = this.props.match.params.id;
+      const {dispatch} = this.props;
+      let car = getCarStockNumber("http://localhost:3001/cars/"+cod);
+      Promise.resolve(car).then(result => {
+        dispatch(reciveCarDetails(result.car));
+      });
+    }
+  }
 
+  render() {
+    const {car} = this.props;
     return (
       <div className="car-details-company">
         <div className="car-details-company__img">
-          <img src={pictureUrl} alt="" />
+          <img src={car.pictureUrl} alt="" />
         </div>
         <div className="car-details-company__container">
           <div className="car-details-company__container__left column column--7">
             <div className="car-details-company__container__left__title">
-              {manufacturerName + " " + modelName}
+              {car.manufacturerName + " " + car.modelName}
             </div>
             <div className="car-details-company__container__left__sub">
-              {`Stock # ${stockNumber} - ${
-                mileage.number
-              } KM - ${fuelType} - ${color}`}
+              {`Stock # ${car.stockNumber} - ${
+                car.mileage.number
+              } KM - ${car.fuelType} - ${car.color}`}
             </div>
             <div className="car-details-company__container__left__text">
               This car is currently available and can be delivered as soon as
@@ -70,14 +82,14 @@ class CarDetails extends Component {
           <div className="car-details-company__container__right  column column--5">
             <div className="car-details-company__container__right__wishlist">
               <div className="ar-details-company__container__right__wishlist__text">
-              {this.props.wishList.includes(stockNumber)
+              {this.props.wishList.includes(car.stockNumber)
                 ? "This car is in your collection. Click the button and remove it!"
                 : "If you like this car, click the button and save it in your collection of favourite items."
               }
               </div>
               <div className="car-details-company__container__right__wishlist__btn">
                 <button onClick={this.handleClick}>
-                  {this.props.wishList.includes(stockNumber)
+                  {this.props.wishList.includes(car.stockNumber)
                     ? "Remove"
                     : "Save"}
                 </button>
@@ -93,7 +105,8 @@ class CarDetails extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    wishList: state.wishListReducer
+    wishList: state.wishListReducer,
+    car : state.loadReducer.car
   };
 };
 

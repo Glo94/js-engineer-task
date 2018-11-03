@@ -5,5 +5,17 @@ export default {
   },
   colors: ["All Colors"],
   manufacturers: [],
-  wishList: []
+  wishList: [],
+  car: {
+    color: "",
+    fuelType: "",
+    manufacturerName: "",
+    mileage: {
+      number: null,
+      unit: ""
+    },
+    modelName: "",
+    pictureUrl: "",
+    stockNumber: null
+  }
 };

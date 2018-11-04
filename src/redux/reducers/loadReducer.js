@@ -10,6 +10,9 @@ export function loadReducer(state = initialState, action) {
     case types.LOAD_MANUFACTURERS_SUCCESS:
       return { ...state, manufacturers: action.c };
 
+    case types.LOAD_CAR_SUCCESS:
+      return {...state, car: action.d};
+
     default:
       return state;
   }

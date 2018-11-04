@@ -16,7 +16,7 @@ class Car extends React.Component {
             car.fuelType
           } - ${car.color}`}</label>
           <Link
-            to={{ pathname: `/car-details/${car.stockNumber}`, state: car }}
+            to={{ pathname: `/car-details/${car.stockNumber}` }}
           >
             View details
           </Link>

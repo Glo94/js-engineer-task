@@ -1,0 +1,25 @@
+@import "../../../css/imports.sass"
+
+.noMatch-company
+    padding: $large-space 0
+    max-width: 800px
+    margin: 0 auto
+
+
+    img
+        width: 25%
+
+    @include e('container')
+        text-align: center
+        height: 100vh
+        display: flex
+        flex-direction: column
+        justify-content: center
+    
+        @include e('title')
+            font-size: $large-size
+            font-weight: $bold
+
+        a
+            @include link()
+            text-decoration: none

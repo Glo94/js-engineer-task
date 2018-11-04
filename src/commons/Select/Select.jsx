@@ -54,8 +54,13 @@ class Select extends Component {
 }
 
 Select.propTypes = {
-  list: PropTypes.array,
-  label: PropTypes.string
+  list: PropTypes.array.isRequired,
+  label: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  valueOfSelect: PropTypes.string.isRequired,
+  openSelect: PropTypes.object.isRequired,
+  setStateFunction: PropTypes.func.isRequired,
+  resetSelect: PropTypes.func.isRequired
 };
 
 export default Select;

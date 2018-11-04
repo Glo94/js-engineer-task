@@ -8,7 +8,7 @@ import NoMatch from "../routes/NoMatch/NoMatch";
 
 //loader
 import Loadable from "react-loadable";
-import Loading from "../utils/Loading";
+import Loading from "../utils/Loading/App";
 
 const AsyncHome = Loadable({
   loader: () => import("./Home/Home"),

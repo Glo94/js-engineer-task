@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import Filter from "./components/Filter/Filter";
 import Result from "./components/Result/Result";
 
@@ -24,7 +25,7 @@ class Home extends Component {
       selectSort: false,
       selectManufacturers: false
     },
-    carsUrl: "http://localhost:3001/cars?page=1",
+    carsUrl: "http://localhost:3001/cars?page=1"
   };
 
   componentDidUpdate() {
@@ -32,13 +33,13 @@ class Home extends Component {
     const { listOfCars } = this.props;
     this.totalCars(carsUrl, page, listOfCars.totalPageCount);
   }
-  
-  componentDidMount () {
-    this._mounted = true
- }
- componentWillUnmount () {
-    this._mounted = false
- }  
+
+  componentDidMount() {
+    this._mounted = true;
+  }
+  componentWillUnmount() {
+    this._mounted = false;
+  }
 
   handleChangeSelectOption = e => {
     let colors = this.state.valueOfSelect.colors;
@@ -48,20 +49,20 @@ class Home extends Component {
     let id = e.target.id.split("-");
 
     switch (id[1].toLowerCase()) {
-      case "colors":
-        colors = value;
-        break;
-      case "sort":
-        sort = value;
-        break;
-      case "manufacturers":
-        manufacturers = value;
-        break;
-      default:
-        break;
+    case "colors":
+      colors = value;
+      break;
+    case "sort":
+      sort = value;
+      break;
+    case "manufacturers":
+      manufacturers = value;
+      break;
+    default:
+      break;
     }
 
-    if(this._mounted) {
+    if (this._mounted) {
       this.setState({
         valueOfSelect: {
           colors: colors,
@@ -92,9 +93,9 @@ class Home extends Component {
         return (initialState[item] = false);
       }
     });
-    if(this._mounted) {
+    if (this._mounted) {
       this.setState({
-        openSelect: initialState,
+        openSelect: initialState
       });
     }
   };
@@ -123,7 +124,7 @@ class Home extends Component {
     let cars = getFilter(url);
     Promise.resolve(cars).then(result => {
       dispatch(loadCars(result));
-      if(this._mounted) {
+      if (this._mounted) {
         this.setState(prevState => ({
           carsUrl: url,
           valueOfSelect: {
@@ -143,20 +144,20 @@ class Home extends Component {
     const { dispatch, listOfCars } = this.props;
 
     switch (e.target.id) {
-      case "next":
-        if (thisPage < listOfCars.totalPageCount) thisPage++;
-        break;
-      case "previous":
-        if (thisPage > 1) thisPage--;
-        break;
-      case "first":
-        thisPage = 1;
-        break;
-      case "last":
-        thisPage = listOfCars.totalPageCount;
-        break;
-      default:
-        break;
+    case "next":
+      if (thisPage < listOfCars.totalPageCount) thisPage++;
+      break;
+    case "previous":
+      if (thisPage > 1) thisPage--;
+      break;
+    case "first":
+      thisPage = 1;
+      break;
+    case "last":
+      thisPage = listOfCars.totalPageCount;
+      break;
+    default:
+      break;
     }
     let split = carsUrl.split("&");
     let split2 = split[0].split("=");
@@ -167,9 +168,8 @@ class Home extends Component {
     let move = getMove(newUrl);
 
     Promise.resolve(move).then(result => {
-      console.log(result);
       dispatch(loadCars(result));
-      if(this._mounted) {
+      if (this._mounted) {
         this.setState({
           carsUrl: newUrl,
           page: thisPage
@@ -193,7 +193,7 @@ class Home extends Component {
     let sort = getSort(url);
     Promise.resolve(sort).then(result => {
       dispatch(loadCars(result));
-      if(this._mounted) {
+      if (this._mounted) {
         this.setState({
           carsUrl: url
         });
@@ -208,7 +208,7 @@ class Home extends Component {
     let totalCarsNumber = getCars(newUrl);
 
     Promise.resolve(totalCarsNumber).then(result => {
-      if(this._mounted) {
+      if (this._mounted) {
         this.setState({
           totalCars: (totalPageCount - 1) * 10 + result.cars.length
         });
@@ -254,7 +254,7 @@ class Home extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   return {
     listOfCars: {
       cars: state.loadReducer.listOfCars.cars,
@@ -264,5 +264,14 @@ const mapStateToProps = (state, ownProps) => {
     colors: state.loadReducer.colors
   };
 };
+
+
+Home.propTypes = {
+  listOfCars: PropTypes.object.isRequired,
+  colors: PropTypes.array.isRequired,
+  manufacturers: PropTypes.array.isRequired,
+  dispatch: PropTypes.func.isRequired
+};
+
 
 export default connect(mapStateToProps)(Home);

@@ -1,8 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Select from "../../../../commons/Select/Select";
-import Car from "../Car/Car";
+//import Car from "../Car/Car";
 import Pagination from "../Pagination/Pagination";
+
+//loader
+import Loadable from "react-loadable";
+import Loading from "../../../../utils/Loading/Car";
+
+const AsyncCar = Loadable({
+  loader: () => import("../Car/Car"),
+  loading: Loading
+});
 
 const sort = ["None", "Mileage - Ascending", "Mileage - Descending"];
 
@@ -44,7 +53,7 @@ const Result = ({
     </div>
     <div className="result-company__row result-company__row--car">
       {cars.map(car => {
-        return <Car key={car.stockNumber} car={car} />;
+        return <AsyncCar key={car.stockNumber} car={car} />;
       })}
     </div>
     <div className="result-company__row">

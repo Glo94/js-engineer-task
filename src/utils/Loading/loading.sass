@@ -1,0 +1,30 @@
+@import "../../css/imports"
+
+.carLoading-company
+    border: 1px solid $grey
+    padding: $normal-space
+    width: 100%
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    align-items: center
+    margin-bottom: $normal-space
+
+    @media (min-width: 768px)
+        flex-direction: row
+        padding-right: 40%
+        align-items: flex-start
+
+    &:last-child
+        margin-bottom: 0
+    
+    @include e('text')
+        margin-left: 0
+        width: 100%
+        display: flex
+        flex-direction: column
+        margin-top: $normal-space
+
+        @media (min-width: 768px)
+            margin-left: $normal-space
+            margin-top:  0

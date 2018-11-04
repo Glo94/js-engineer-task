@@ -61,7 +61,7 @@ Result.propTypes = {
   cars: PropTypes.array.isRequired,
   totalPageCount: PropTypes.number.isRequired,
   page: PropTypes.number.isRequired,
-  valueOfSelect: PropTypes.object.isRequired,
+  valueOfSelect: PropTypes.string.isRequired,
   setStateFunction: PropTypes.func.isRequired,
   openSelect: PropTypes.object.isRequired,
   resetSelect: PropTypes.func.isRequired,

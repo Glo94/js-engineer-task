@@ -26,7 +26,7 @@ class Car extends React.Component {
 }
 
 Car.propTypes = {
-  car: PropTypes.array.isRequired
+  car: PropTypes.object.isRequired
 };
 
 export default Car;

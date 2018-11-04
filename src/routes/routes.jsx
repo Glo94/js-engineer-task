@@ -4,7 +4,7 @@ import { Route, Switch } from "react-router-dom";
 //components
 import Header from "../commons/Header/Header";
 import Footer from "../commons/Footer/Footer";
-import NoMatch from "../routes/NoMatch/NoMatch"
+import NoMatch from "../routes/NoMatch/NoMatch";
 
 //loader
 import Loadable from "react-loadable";

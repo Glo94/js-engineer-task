@@ -1,9 +1,10 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 class Car extends React.Component {
   render() {
-    const { label, car } = this.props;
+    const { car } = this.props;
 
     return (
       <div className="car-company">
@@ -15,9 +16,7 @@ class Car extends React.Component {
           <label>{`Stock # ${car.stockNumber} - ${car.mileage.number} KM - ${
             car.fuelType
           } - ${car.color}`}</label>
-          <Link
-            to={{ pathname: `/car-details/${car.stockNumber}` }}
-          >
+          <Link to={{ pathname: `/car-details/${car.stockNumber}` }}>
             View details
           </Link>
         </div>
@@ -25,5 +24,9 @@ class Car extends React.Component {
     );
   }
 }
+
+Car.propTypes = {
+  car: PropTypes.array.isRequired
+};
 
 export default Car;

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import Select from "../../../../commons/Select/Select";
 import Car from "../Car/Car";
 import Pagination from "../Pagination/Pagination";
@@ -55,5 +56,17 @@ const Result = ({
     </div>
   </div>
 );
+
+Result.propTypes = {
+  cars: PropTypes.array.isRequired,
+  totalPageCount: PropTypes.number.isRequired,
+  page: PropTypes.number.isRequired,
+  valueOfSelect: PropTypes.object.isRequired,
+  setStateFunction: PropTypes.func.isRequired,
+  openSelect: PropTypes.object.isRequired,
+  resetSelect: PropTypes.func.isRequired,
+  movePage: PropTypes.func.isRequired,
+  totalItem: PropTypes.number.isRequired
+};
 
 export default Result;
